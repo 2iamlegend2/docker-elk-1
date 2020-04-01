@@ -13,7 +13,7 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
-      - ${CUSTOM_NETWORK_NAME}
+      - elk
 
   logstash:
     build:
@@ -26,7 +26,7 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
-      - ${CUSTOM_NETWORK_NAME}
+      - elk
     depends_on:
       - elasticsearch
 
@@ -38,6 +38,11 @@ services:
     ports:
       - "5601:5601"
     networks:
-      - ${CUSTOM_NETWORK_NAME}
+      - elk
     depends_on:
       - elasticsearch
+
+networks:
+
+  elk:
+    driver: bridge
